@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Validation</title>
+    <style>
+        .password-container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #password-strength {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .weak {
+            color: red;
+        }
+
+        .medium {
+            color: orange;
+        }
+
+        .strong {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="password-container">
+    <label for="password">Password:</label>
+    <input type="password" id="password" oninput="checkPasswordStrength(this.value)" required>
+    <div id="password-strength"></div>
+</div>
+
+<script>
+    function checkPasswordStrength(password) {
+        var strength = 0;
+
+        // Check for at least 8 characters
+        if (password.length >= 8) {
+            strength += 1;
+        }
+
+        // Check for at least one lowercase letter
+        if (password.match(/[a-z]/)) {
+            strength += 1;
+        }
+
+        // Check for at least one uppercase letter
+        if (password.match(/[A-Z]/)) {
+            strength += 1;
+        }
+
+        // Check for at least one number
+        if (password.match(/[0-9]/)) {
+            strength += 1;
+        }
+
+        // Check for at least one special character
+        if (password.match(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/)) {
+            strength += 1;
+        }
+
+        // Display password strength
+        var strengthText = document.getElementById("password-strength");
+        if (strength <= 2) {
+            strengthText.innerHTML = "Weak";
+            strengthText.className = "weak";
+        } else if (strength <= 4) {
+            strengthText.innerHTML = "Medium";
+            strengthText.className = "medium";
+        } else {
+            strengthText.innerHTML = "Strong";
+            strengthText.className = "strong";
+        }
+    }
+</script>
+
+</body>
+</html>
+
